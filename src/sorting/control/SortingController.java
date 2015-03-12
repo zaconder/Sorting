@@ -147,16 +147,14 @@ public class SortingController
 				if(temp < 32)
 				{
 					isCool = true;
-//					stuffage[row] = new Gui("Gui # " + row, temp, isCool );
 
 				}
 				else
 				{
 					isCool = false;
-//					stuffage[row] = new Gui("Gui # " + row, temp, isCool );
 
 				}
-				stuffage[row] = new Gui("Gui # " + row, temp, isCool );
+				stuffage[row] = new Gui("Gui # " + row, temp, isCool);
 			}
 		}
 	}

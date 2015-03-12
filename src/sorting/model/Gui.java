@@ -48,8 +48,8 @@ public class Gui implements Comparable
 	{
 		String tempInfo ="";
 		
-		tempInfo +="Hello, the current tempurature is " + temp;
-//		tempInfo += " it is this warm outside... " + temp;
+		tempInfo +="Hello, the current tempurature is " + name;
+		tempInfo += " " + temp;
 		
 		
 		if(isCool)
