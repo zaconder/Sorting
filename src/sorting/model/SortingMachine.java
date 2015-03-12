@@ -132,7 +132,7 @@ public class SortingMachine
 			maximumGui = unsortedGui[position];
 			for(int next = position+1; next < unsortedGui.length; next++)
 			{
-				if(unsortedGui[next].compareTo(maximumGui) < 0)
+				if(unsortedGui[next].compareTo(maximumGui) > 0)
 				{
 					maximumGui = unsortedGui[next];
 					maximumPosition = next;
