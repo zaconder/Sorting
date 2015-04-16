@@ -1,5 +1,6 @@
 package sorting.control;
 
+
 public class SortingRunner
 {
 
@@ -7,7 +8,5 @@ public class SortingRunner
 	{
 		SortingController appController = new SortingController();
 		appController.start();
-
 	}
-
 }

@@ -4,11 +4,14 @@ import sorting.model.Gui;
 import sorting.model.SortingMachine;
 import sorting.view.SortingFrame;
 
+import java.util.*;
+
 public class SortingController
 {
 	private SortingFrame appFrame;
 	private SortingMachine mySorter;
 	private int [] wholeNumbers;
+	private ArrayList<Integer> wholeArrayNumbers;
 	private double [] realNumbers;
 	private String [] wordage;
 	private Gui[] stuffage;
@@ -17,19 +20,23 @@ public class SortingController
 	{
 		mySorter = new SortingMachine();
 		appFrame = new SortingFrame(this);
+		wholeArrayNumbers = new ArrayList<Integer>();
 	}
 	
 	public int[] getWholeNumbers()
 	{
 		return wholeNumbers;
 	}
-
-
+	
+	public ArrayList<Integer> getWholeArrayNumbers()
+	{
+		return wholeArrayNumbers;
+	}
+	
 	public double[] getRealNumbers()
 	{
 		return realNumbers;
 	}
-
 
 	public String[] getWordage()
 	{
@@ -45,7 +52,12 @@ public class SortingController
 	{
 		this.wholeNumbers = wholenumbers;
 	}
-
+	
+	public void setWholeArrayNumbers(ArrayList<Integer> wholeArrayNumbers)
+	{
+		this.wholeArrayNumbers = wholeArrayNumbers;
+	}
+	
 	public void setRealNumbers(double[] realNumbers)
 	{
 		this.realNumbers = realNumbers;
@@ -75,6 +87,7 @@ public class SortingController
 	private void fillTheArrays()
 	{
 		randomIntArray();	
+		randomStuffIntArray();
 		randomDoubleArray();
 		randomGui();
 		randomWords();
@@ -96,12 +109,23 @@ public class SortingController
 	
 	private void randomIntArray()
 	{
-		wholeNumbers = new int [2000];
+		wholeNumbers = new int [5000];
 		for(int spot = 0; spot < wholeNumbers.length; spot++)
 		{
 			wholeNumbers[spot] = (int)(Math.random()* 25634);
 		}
 		
+	}
+	
+	private void randomStuffIntArray()
+	{
+		wholeNumbers = new int [5000];
+		for(int spot = 0; spot < wholeNumbers.length; spot++)
+		{
+			int myRandom = (int)(Math.random()* 25634);
+			wholeNumbers[spot] = myRandom;
+			wholeArrayNumbers.add(myRandom);
+		}	
 		
 	}
 	

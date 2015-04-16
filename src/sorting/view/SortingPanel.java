@@ -3,6 +3,7 @@ package sorting.view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -13,8 +14,8 @@ import sorting.view.SortingFrame;
 public class SortingPanel extends JPanel
 {
 
-	Color aColor = new Color(669900);
-	Color bColor = new Color(0xFF9900);
+	Color aColor = new Color(0x771B0C);
+	Color bColor = new Color(0xECC5A8);
 	Color cColor = new Color(660099);
 
 	/**
@@ -25,19 +26,29 @@ public class SortingPanel extends JPanel
 	/**
 	 * adds a button to the panel
 	 */
-	private JButton sortButton;
+	private JButton sortIntButton;
 
 	/**
 	 * adds a button to the panel
 	 */
 	private JButton searchButton;
 
-	private JButton sort2Button;
+	private JButton sortABCButton;
 	
-	private JButton sort3Button;
+	private JButton sortDoubleButton;
 	
-	private JButton sort4Button;
+	private JButton sortGuiButton;
+	
+	private JButton quickButton;
+	
+	private JButton sortArrayButton;
 
+	private JLabel unsortedLabel;
+	
+	private JLabel sortedLabel;
+	
+	private JLabel timeLabel;
+	
 	/**
 	 * adds a text field to the panel
 	 */
@@ -66,6 +77,10 @@ public class SortingPanel extends JPanel
 
 	private JTextArea displayArea3;
 
+//	private long startTime;
+//	private long endTime;
+//	private long sortTime;
+	
 	/**
 	 * connects panel to base controller
 	 * 
@@ -76,11 +91,16 @@ public class SortingPanel extends JPanel
 	public SortingPanel(SortingController baseController)
 	{
 		this.baseController = baseController;
-		sortButton = new JButton("SortInt");
+		unsortedLabel = new JLabel("Unsorted Information:");
+		sortedLabel = new JLabel("Sorted Information:");
+		timeLabel = new JLabel("Time to Sort:");
+		sortIntButton = new JButton("SortInt");
 		searchButton = new JButton("Search");
-		sort2Button = new JButton("SortABC");
-		sort3Button = new JButton("SortDouble");
-		sort4Button = new JButton("SortGui");
+		sortABCButton = new JButton("SortABC");
+		sortDoubleButton = new JButton("SortDouble");
+		sortGuiButton = new JButton("SortGui");
+		quickButton = new JButton("QuickSort");
+		sortArrayButton = new JButton("ArrayListSort");
 		inputField = new JTextField(20);
 		baseLayout = new SpringLayout();
 		displayArea = new JTextArea(15, 35);
@@ -139,15 +159,23 @@ public class SortingPanel extends JPanel
 		this.add(textPane2);
 		this.add(textPane);
 		this.setSize(1000, 600);
-		this.add(sortButton);
-		this.add(sort2Button);
-		this.add(sort3Button);
-		this.add(sort4Button);
+		this.add(sortIntButton);
+		this.add(sortABCButton);
+		this.add(sortDoubleButton);
+		this.add(sortGuiButton);
+		this.add(sortArrayButton);
 		this.add(searchButton);
+		this.add(quickButton);
 		this.add(inputField);
+		this.add(unsortedLabel);
+		this.add(sortedLabel);
+		this.add(timeLabel);
 		textPane.setBackground(Color.LIGHT_GRAY);
 		textPane2.setBackground(Color.LIGHT_GRAY);
 		textPane3.setBackground(Color.LIGHT_GRAY);
+		unsortedLabel.setForeground(Color.YELLOW);
+		sortedLabel.setForeground(Color.YELLOW);
+		timeLabel.setForeground(Color.YELLOW);
 
 		inputField.setBackground(Color.WHITE);
 
@@ -158,23 +186,31 @@ public class SortingPanel extends JPanel
 	 */
 	private void setupLayout()
 	{
-		baseLayout.putConstraint(SpringLayout.WEST, inputField, 50, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.WEST, textPane, 50, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.NORTH, inputField, 280, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.NORTH, textPane, 25, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.NORTH, searchButton, 350, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, searchButton, 180, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.NORTH, sort2Button, 350, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.NORTH, sortButton, 350, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, sortABCButton, 350, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, sortIntButton, 350, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.NORTH, textPane2, 330, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.EAST, textPane2, -50, SpringLayout.EAST, this);
 		baseLayout.putConstraint(SpringLayout.NORTH, textPane3, 25, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.EAST, textPane3, -50, SpringLayout.EAST, this);
-		baseLayout.putConstraint(SpringLayout.NORTH, sort4Button, 350, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, sort4Button, 380, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.NORTH, sort3Button, 350, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, sort3Button, 265, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.WEST, sort2Button, 85, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, sortGuiButton, 350, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, sortDoubleButton, 350, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, sortArrayButton, 350, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, sortABCButton, 85, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, quickButton, 350, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, quickButton, 385, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, sortGuiButton, 295, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, sortDoubleButton, 180, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, searchButton, 280, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, searchButton, 300, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, inputField, 45, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, sortArrayButton, 490, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, unsortedLabel, 180, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, timeLabel, 305, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, sortedLabel, 680, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, timeLabel, 815, SpringLayout.WEST, this);
 	}
 
 	/**
@@ -182,7 +218,7 @@ public class SortingPanel extends JPanel
 	 */
 	private void setupListeners()
 	{
-		sortButton.addActionListener(new ActionListener()
+		sortIntButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent click)
 			{
@@ -205,8 +241,32 @@ public class SortingPanel extends JPanel
 				displayArea3.setText(rawArray3);
 			}
 		});
+		
+		sortArrayButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String rawArray = "";
+				String rawArray2 = "";
+				String rawArray3 = "";
+				for (Integer number : baseController.getWholeArrayNumbers())
+				{
+					rawArray += number + " ";
+				}
+				baseController.getMySorter().selectionArraySort(baseController.getWholeArrayNumbers());
+				rawArray2 += baseController.getMySorter().sortingTime(baseController.getMySorter().getSortTime());
+				for (Integer number : baseController.getWholeArrayNumbers())
+				{
+					rawArray3 += number + " ";
+				}
 
-		sort2Button.addActionListener(new ActionListener()
+				displayArea.setText(rawArray);
+				displayArea2.setText(rawArray2);
+				displayArea3.setText(rawArray3);
+			}
+		});
+
+		sortABCButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent click)
 			{
@@ -230,7 +290,7 @@ public class SortingPanel extends JPanel
 			}
 		});
 
-		sort3Button.addActionListener(new ActionListener()
+		sortDoubleButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent click)
 			{
@@ -254,7 +314,7 @@ public class SortingPanel extends JPanel
 			}
 		});
 		
-		sort4Button.addActionListener(new ActionListener()
+		sortGuiButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent click)
 			{
@@ -281,5 +341,37 @@ public class SortingPanel extends JPanel
 				displayArea3.setText(rawArray3);
 			}
 		});
+		
+		quickButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String rawArray = "";
+				String rawArray2 = "";
+				String rawArray3 = "";
+				for (int number : baseController.getWholeNumbers())
+				{
+					rawArray += number + " ";
+				}
+//				startTime = System.currentTimeMillis();
+				baseController.getMySorter().quickSort(baseController.getWholeNumbers(), 0, baseController.getWholeNumbers().length-1);
+				rawArray2 += baseController.getMySorter().sortingTime(baseController.getMySorter().getSortTime());
+//				startTime = System.currentTimeMillis();
+//				sortTime = endTime - startTime;
+				for (int number : baseController.getWholeNumbers())
+				{
+					rawArray3 += number + " ";
+				}
+
+				displayArea.setText(rawArray);
+				displayArea2.setText(rawArray2);
+				displayArea3.setText(rawArray3);
+			}
+		});
 	}
+	
+//	public long getSortTime()
+//	{
+//		return sortTime;
+//	}
 }

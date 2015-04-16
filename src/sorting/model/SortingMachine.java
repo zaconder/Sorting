@@ -1,5 +1,7 @@
 package sorting.model;
 
+import java.util.ArrayList;
+
 
 public class SortingMachine
 {
@@ -28,6 +30,47 @@ public class SortingMachine
 	}
 	
 	
+	public void quickSort(int [] toBeSorted, int lo, int hi)
+	{
+		
+		if (lo < hi)
+		{
+			int p = partition(toBeSorted, lo, hi);
+			quickSort(toBeSorted, lo, p - 1);
+			quickSort(toBeSorted, p + 1, hi);
+		}
+		
+	}
+	
+	public int partition(int[] toBeSorted, int lo, int hi)
+	{
+		
+		int	pivotIndex = choosePivot(toBeSorted, lo, hi);
+		int	pivotValue = toBeSorted[pivotIndex];
+		
+		swap(toBeSorted, pivotIndex, hi);
+		int storeIndex = lo;
+		
+		for(int position = lo; position <= hi-1; position++)
+		{
+				if(toBeSorted[position] < pivotValue)
+				{
+					swap(toBeSorted,position, storeIndex);
+					storeIndex++;
+				}
+		}
+		swap(toBeSorted, storeIndex, hi);
+		
+		return pivotIndex;
+	}
+	
+	public int choosePivot(int [] toBeSorted, int lo, int hi)
+	{
+		
+		int	pivot = lo +(hi-lo)/2;
+		return pivot;
+		
+	}
 	
 	public int[] selectionSort(int [] toBeSorted)
 	{
@@ -44,6 +87,36 @@ public class SortingMachine
 				if(toBeSorted[next] < minimum)
 				{
 					minimum = toBeSorted[next];
+					minimumPosition = next;
+				}
+			}
+			if(minimumPosition != position)
+			{
+				swap(toBeSorted, position, minimumPosition);
+			}
+		}
+		endTime = System.currentTimeMillis();
+		
+		sortTime = endTime - startTime;
+		
+		return toBeSorted;
+	}
+	
+	public ArrayList<Integer> selectionArraySort(ArrayList<Integer> toBeSorted)
+	{
+		
+		int minimum;
+		int minimumPosition;
+		startTime = System.currentTimeMillis();
+		for(int position = 0; position < toBeSorted.size(); position++)
+		{
+			minimumPosition = position;
+			minimum = toBeSorted.get(position);
+			for(int next = position +1; next < toBeSorted.size(); next++)
+			{
+				if(toBeSorted.get(next) < minimum)
+				{
+					minimum = toBeSorted.get(next);
 					minimumPosition = next;
 				}
 			}
@@ -155,6 +228,13 @@ public class SortingMachine
 		int temp = array[position];
 		array[position] = array[change];
 		array[change] = temp;
+	}
+	
+	private void swap(ArrayList<Integer> array, int position, int change)
+	{
+		int temp = array.get(position);
+		array.set(position, array.get(change));
+		array.set(change, temp);
 	}
 	
 	private void swap (Gui[] array, int position, int change)
